@@ -1,19 +1,37 @@
 {
   "name": "week_nilesh_kasar",
   "version": "1.0.0",
-  "description": "A weather fetching and storing data in database api,nodemailer and Debug.",
+  "description": "A weather fetching and storing data in database api, nodemailer and Debug.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "ts-node src/app.ts"
   },
+  
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nilkasar929/Week3_Nilesh_Kasar.git"
   },
+
   "author": "Nilesh Kasar",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/nilkasar929/Week3_Nilesh_Kasar/issues"
   },
-  "homepage": "https://github.com/nilkasar929/Week3_Nilesh_Kasar#readme"
+
+  "homepage": "https://github.com/nilkasar929/Week3_Nilesh_Kasar#readme",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "express": "^4.19.2",
+    "nodemon": "^3.1.0",
+    "pg": "^8.11.5",
+    "sequelize": "^6.37.3",
+    "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.12",
+    "@types/pg": "^8.11.6",
+    "@types/sequelize": "^4.28.20"
+  }
 }
