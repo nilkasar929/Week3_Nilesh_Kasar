@@ -16,9 +16,9 @@ app.post('/api/saveWeatherMapping', async (req, res) => {
     const cities = req.body;
 
     // Validate request body
-    if (!Array.isArray(cities) || cities.some(city => !city.city || !city.country)) {
-      return res.status(400).json({ error: 'Invalid input format' });
-    }
+    // if (!Array.isArray(cities) || cities.some(city => !city.city || !city.country)) {
+    //   return res.status(400).json({ error: 'Invalid input format' });
+    // }
 
     // Fetch coordinates for each city and country pair
     const coordinatesPromises = cities.map(async (cityy: { city: string; country: string }) => {
