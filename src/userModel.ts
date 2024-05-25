@@ -34,10 +34,10 @@ Weather.init(
       allowNull: false,
     },
 
-    time: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
+    // time: {
+    //   type: DataTypes.DATE,
+    //   allowNull: true,
+    // },
 
     longitude: {
       type: DataTypes.FLOAT,
@@ -53,8 +53,8 @@ Weather.init(
 
   {
     sequelize,
-    tableName: 'weathers',
-    timestamps: false,
+    tableName: 'weather',
+    timestamps: true,
   }
 );
 

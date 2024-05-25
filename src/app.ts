@@ -1,7 +1,8 @@
-import { saveWeather } from './service';
+import { saveWeather,fetchWeather, fetchWeatherData,sendWeatherEmail,htmlFormat } from './service';
 import express from 'express';
 import sequelize from './pgConfig';
 import bodyParser from 'body-parser';
+import nodemailer from 'nodemailer'
 
 // Replace these with your actual API keys
 const geocodingApiKey = 'EawR1VooP3sT7WkzEVqlrw==a3GUEDZGn5lTSF6E';
@@ -10,25 +11,22 @@ const weatherApiKey ='c19db6272cmshb57302bf98667e1p19ac3fjsncf723e114701';
 const app = express();
 app.use(bodyParser.json());
 
-
 app.post('/api/saveWeatherMapping', async (req, res) => {
   try {
     const cities = req.body;
-
-    // Validate request body
-    // if (!Array.isArray(cities) || cities.some(city => !city.city || !city.country)) {
-    //   return res.status(400).json({ error: 'Invalid input format' });
-    // }
 
     // Fetch coordinates for each city and country pair
     const coordinatesPromises = cities.map(async (cityy: { city: string; country: string }) => {
       
         const { city, country } = cityy;
         const { latitude, longitude } = await saveWeather(city, country, geocodingApiKey);
-        return { city, country, latitude, longitude };
+        const weather = await fetchWeather(latitude,longitude,weatherApiKey)
+        
+        return { city, country, latitude, longitude,weather };
       } 
-    );
 
+    );
+    
     // Wait for all coordinate fetching requests to complete
     const coordinates = await Promise.all(coordinatesPromises);
 
@@ -39,6 +37,37 @@ app.post('/api/saveWeatherMapping', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+
+app.get('/api/getWeatherData',async(req,res)=>{
+  try {
+    const city: any = req.query.city;
+
+  const weatherData =await fetchWeatherData(city);
+
+  res.json(weatherData);
+  } catch (error:any) {
+    console.log(error)
+  }
+  
+})
+
+
+app.post('/api/sendEmail', async (req, res) => {
+  const { to, city } = req.body;
+
+  try {
+    const weatherData = await fetchWeatherData(city);
+    const formattedData = htmlFormat(weatherData);
+
+    await sendWeatherEmail(to, 'Weather Data', formattedData);
+    res.status(200).send('Email sent successfully');
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('An error occurred while sending the email.');
   }
 });
 

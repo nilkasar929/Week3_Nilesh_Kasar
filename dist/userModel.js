@@ -25,10 +25,10 @@ Weather.init({
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
-    time: {
-        type: sequelize_1.DataTypes.DATE,
-        allowNull: false,
-    },
+    // time: {
+    //   type: DataTypes.DATE,
+    //   allowNull: true,
+    // },
     longitude: {
         type: sequelize_1.DataTypes.FLOAT,
         allowNull: false,
@@ -39,7 +39,7 @@ Weather.init({
     },
 }, {
     sequelize: pgConfig_1.default,
-    tableName: 'weathers',
-    timestamps: false,
+    tableName: 'weather',
+    timestamps: true,
 });
 exports.default = Weather;
