@@ -4,7 +4,6 @@ import sequelize from './pgConfig';
 import bodyParser from 'body-parser';
 import nodemailer from 'nodemailer'
 
-// Replace these with your actual API keys
 const geocodingApiKey = 'EawR1VooP3sT7WkzEVqlrw==a3GUEDZGn5lTSF6E';
 const weatherApiKey ='c19db6272cmshb57302bf98667e1p19ac3fjsncf723e114701';
 
@@ -24,7 +23,6 @@ app.post('/api/saveWeatherMapping', async (req, res) => {
         
         return { city, country, latitude, longitude,weather };
       } 
-
     );
     
     // Wait for all coordinate fetching requests to complete
@@ -41,7 +39,7 @@ app.post('/api/saveWeatherMapping', async (req, res) => {
 });
 
 
-
+//To fetch weatehr data from database
 app.get('/api/getWeatherData',async(req,res)=>{
   try {
     const city: any = req.query.city;
@@ -55,7 +53,7 @@ app.get('/api/getWeatherData',async(req,res)=>{
   
 })
 
-
+//To send Email 
 app.post('/api/sendEmail', async (req, res) => {
   const { to, city } = req.body;
 
@@ -71,7 +69,7 @@ app.post('/api/sendEmail', async (req, res) => {
   }
 });
 
-const PORT = 3000;
+const PORT = 5000;
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
